@@ -1,0 +1,66 @@
+* {
+    font-family: "Manrope", arial, sans-serif;
+    box-sizing: content-box;
+    margin: 0;
+    padding: 0;
+    
+}
+
+html {
+    text-align: center;
+    /* background-color: #ffa; */
+}
+
+body {
+    /* background-color: #ffa; */
+}
+
+header {
+    position: fixed;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    background-color: rgba(29, 25, 33, 0.2);
+    z-index: 10;
+    /* min-height: 110px; */
+    /* margin-top: -100px; */
+}
+
+main{
+    display: flex;
+    position: absolute;
+    width: 100%;
+    align-items: center;
+    background-color: #faf;
+    margin-top: 130px;
+}
+main embed{
+    display: block;
+    position: relative;
+    align-items: center;
+
+    width: 80%;
+    height: 3600px;
+}
+.loginForm{
+    display: block;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: rgba(149, 46, 252, 0.2);
+}
+
+.ButtonSubmit {
+    width: 100%;
+    color: #fff;
+    background-color: black;
+    height: 2rem;
+}
+a {
+    display: block;
+    text-decoration: none;
+    font-size: 2rem;
+    color: #fff;
+}
