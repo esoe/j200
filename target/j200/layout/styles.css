@@ -5,67 +5,78 @@
     padding: 0;
 }
 
-header {
+a{
+    text-decoration: none;
+    color: #fff;
+}
+
+header{
+    display: flex;
     position: fixed;
     justify-content: space-between;
     width: 100%;
-    padding-left: 10%;
+    padding-left: 20%;
     align-items: center;
-    display: flex;
     justify-content: space-between;
-    background-color: rgba(29, 25, 33, 0.2);
+    background-color: rgba(29, 25, 33, 0.6);
     z-index: 10;
-    max-height: 7rem;
+    max-height: 3rem;
+}
+
+aside{
+    display: block;
+    align-items: center;
+    position: fixed;
+    color: #fff;
+    background-color: rgba(29, 25, 33, 0.6);
+    width: 20%;
+    height: 700px;
+    margin-top: 3rem;
+}
+aside a{
+    /* display: block; */
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+    font-size: x-large;
+    background-color: rgba(70, 70, 70, 0.9);
+    text-align: center;
+    border: 1px solid #000;
+}
+aside a:hover{
+    background-color: rgba(70, 70, 70, 0.2);
+    border: 3px solid #fff;
 }
 
 main{
-    display: flex;
+    display: block;
     position: absolute;
-    width: 100%;
-    align-items: center;
+    height: 700px;
+    width: 80%;
     background-color: #232222;
-    margin-top: 7rem;
+    margin-top: 3rem;
+    margin-left: 20%;
 }
-aside{
-    display: inline-block;
-    position: fixed;
-    color: #fff;
-    background-color: rgba(29, 25, 33, 0.2);
-    width: 10%;
-    height: 1dvh;
-    margin-top: 7rem;
-}
-
 embed{
-    display: inline-block;
-    width: 90%;
-    height: 3600px;
-    margin-left: 10%;
-}
-.loginForm{
-    display: block;
-    text-align: center;
-    background-color: rgba(149, 46, 252, 0.2);
-}
-.createForm{
-    display: block;
-    text-align: center;
-    background-color: rgba(149, 46, 252, 0.2);
-}
-input {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
     width: 100%;
-    height: 6rem;
+    /* height: 700px; */
 }
-
-.button {
+label{
     width: 100%;
-    color: #fff;
-    background-color: black;
 }
-
-a {
-    display: block;
-    text-decoration: none;
-    font-size: 1rem;
+select{
+    width: 100%;
+}
+input{
+    width: 100%;
+}
+button{
+    width: 100%;
+    background-color: rgb(36, 2, 69);
     color: #fff;
+    border-radius: 0%;
+    
 }

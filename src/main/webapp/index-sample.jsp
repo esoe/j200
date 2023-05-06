@@ -11,14 +11,14 @@
             <h1>J200 : разработка корпоративных приложений</h1>
         </a>
         <%-- <a  href="login-servlet">login Servlet</a> --%>
-        <%-- <form class="loginForm" action="login-servlet" method="post">
+        <form class="loginForm" action="login-servlet" method="post">
             <input type="text" name="login" value="login"/>
             <input type="password" name="password" value="login"/>
             <input class="button" type="submit" value="Sing in">
-        </form> --%>
-        <form class="createForm" action="create-servlet" method="post">
-            <input class="button" type="submit" value="C">
         </form>
+        <%-- <form class="createForm" action="create-servlet" method="post">
+            <input class="button" type="submit" value="C">
+        </form> --%>
     </header>
     <main>
         <embed src="content/Лабораторная_работа_по_курсу_DEV_J200.pdf" type="application/pdf">

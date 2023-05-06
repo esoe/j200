@@ -2,14 +2,13 @@ package ru.molokoin.j200.model;
 
 import java.util.List;
 import java.util.Objects;
-
-import javax.xml.crypto.Data;
+import java.util.Date;
 
 public class Client {
     private int clientid;
     private char[] client_name = new char[100];
     private char[] type = new char[20];
-    private Data added;
+    private Date added;
     private List<Address> addresses;
 
     /**
@@ -51,13 +50,13 @@ public class Client {
     /**
      * @param added the added to set
      */
-    public void setAdded(Data added) {
+    public void setAdded(Date added) {
         this.added = added;
     }
     /**
      * @return the added
      */
-    public Data getAdded() {
+    public Date getAdded() {
         return added;
     }
     /**
