@@ -18,8 +18,15 @@ public class CreateServlet extends HttpServlet{
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         page(request, response);
     }
+    /**
+     * Метод формирует графический интерфейс для работы с данными клиентов
+     * @param request
+     * @param response
+     * @throws IOException
+     */
     private void page(HttpServletRequest request, HttpServletResponse response) throws IOException{
         response.setContentType("text/html; charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         PrintWriter out = response.getWriter();
         out.println("<!DOCTYPE html>");
         out.println("<html lang=\"en\">");
@@ -36,48 +43,113 @@ public class CreateServlet extends HttpServlet{
         out.println("            <h1>J200 : разработка корпоративных приложений</h1>");
         out.println("        </a>");
         out.println("    </header>");
-        out.println("    <aside>");
-        out.println("        <form action=\"create-servlet\" method=\"post\">");
-        out.println("            <label for=\"client_id\">ID клиента: </label>");
-        out.println("            <br>");
-        out.println("            <input type=\"text\" name=\"client_id\" value=\"1\" readonly>");
-        out.println("            <br><br>");
-        out.println("            <label>Введите ФИО клиента</label>");
-        out.println("            <br>");
-        out.println("            <input type=\"text\" name=\"client_name\" placeholder=\"Введите ФИО клиента\">");
-        out.println("            <br><br>");
-        out.println("            <label>Выбор типа клиента</label>");
-        out.println("            <br>");
-        out.println("            <select name=\"type\">");
-        out.println("                <option value=\"Юридическое лицо\">Юридическое лицо</option>");
-        out.println("                <option value=\"Физическое лицо\">Физическое лицо</option>");
-        out.println("            </select>");
-        out.println("            <br><br>");
-        out.println("            <label>Дата добавления клиента</label>");
-        out.println("            <input type=\"date\" name=\"added\">");
-        out.println("            <br><br>");
-        out.println("            <button type=\"submit\" formmethod=\"post\">ЗАРЕГИСТРИРОВАТЬ</button>");
-        out.println("        </form>");
-        out.println("    </aside>");
-        out.println("    <main>");
-        out.println("        <h1>Список клиентов:</h1>");
-        // Формирование данных о клиенах
+        /**
+         * TODO : предусмотреть условие, для отображения только одной из секций <aside>
+         */
+        // формируем секцию <aside>, для заполнения сведений о клиенте
+        out.println(client());
+        // формируем секцию <aside>, для внесения сведений об адресах клиента
+        out.println(address(request, response));
+        // Формируем секцию <main>, для отображения внесенных сведений о текущем клиента
         out.println(report(request, response));
-        out.println("    </main>");
+
         out.println("    <footer></footer>");
         out.println("</body>");
         out.println("</html>");
     }
+    /**
+     * Метод формирует секцию <aside> стараницы, для внесения сведений о клиенте.
+     * Когда сведения о клиенте внесены при нажатии кнопки "добавить адреса"
+     * - открывается панель main
+     * - открывается кнопка "Зарегистрировать" (отправить данные на сервер возможно только когда заполнены все поля формы, и заполнены правильно)
+     * @return
+     */
+    private String client(){
+        StringBuilder client = new StringBuilder();
+        client.append("    <aside>");
+        client.append("        <form action=\"create-servlet\" method=\"post\">");
+        client.append("            <br>");
+        client.append("            <label for=\"client_id\">ID клиента: </label>");
+        client.append("            <br>");
+        client.append("            <input type=\"text\" name=\"client_id\" value=\"1\" readonly>");
+        client.append("            <br><br>");
+        client.append("            <label>Введите ФИО клиента</label>");
+        client.append("            <br>");
+        client.append("            <input type=\"text\" name=\"client_name\" placeholder=\"Введите ФИО клиента\">");
+        client.append("            <br><br>");
+        client.append("            <label>Выбор типа клиента</label>");
+        client.append("            <br>");
+        client.append("            <select name=\"type\">");
+        client.append("                <option value=\"Юридическое лицо\">Юридическое лицо</option>");
+        client.append("                <option value=\"Физическое лицо\">Физическое лицо</option>");
+        client.append("            </select>");
+        client.append("            <br><br>");
+        client.append("            <label>Дата добавления клиента</label>");
+        client.append("            <input type=\"date\" name=\"added\">");
+        client.append("            <br><br>");
+        client.append("            <button type=\"submit\" formmethod=\"post\">Добавить адреса</button>");
+        client.append("        </form>");
+        client.append("    </aside>");
+        return client.toString();
+    }
+    /**
+     * Метод формирует представление (графический интерфейс) для ввода сведений об адресах клиента
+     * - при нажатии кнопки "добавить адрес", происходит проверка введенных пользователем данных, в случае валидности данных,
+     * данные уходят в базу (пока в куки), отображаются завершенным списком и доривсовывается пустая форма ввода нового адреса.
+     * TODO : переписать секцию, для данных об адресе
+     * @param request
+     * @param response
+     * @return
+     */
+    private String address(HttpServletRequest request, HttpServletResponse response){
+        StringBuilder address = new StringBuilder();
+        address.append("    <aside>");
+        address.append("        <form action=\"create-servlet\" method=\"post\">");
+        address.append("            <br>");
+        address.append("            <label for=\"client_id\">ID клиента: </label>");
+        address.append("            <br>");
+        address.append("            <input type=\"text\" name=\"client_id\" value=\"1\" readonly>");
+        address.append("            <br><br>");
+        address.append("            <label>Введите ФИО клиента</label>");
+        address.append("            <br>");
+        address.append("            <input type=\"text\" name=\"client_name\" placeholder=\"Введите ФИО клиента\">");
+        address.append("            <br><br>");
+        address.append("            <label>Выбор типа клиента</label>");
+        address.append("            <br>");
+        address.append("            <select name=\"type\">");
+        address.append("                <option value=\"Юридическое лицо\">Юридическое лицо</option>");
+        address.append("                <option value=\"Физическое лицо\">Физическое лицо</option>");
+        address.append("            </select>");
+        address.append("            <br><br>");
+        address.append("            <label>Дата добавления клиента</label>");
+        address.append("            <input type=\"date\" name=\"added\">");
+        address.append("            <br><br>");
+        address.append("            <button type=\"submit\" formmethod=\"post\">Добавить адреса</button>");
+        address.append("        </form>");
+        address.append("    </aside>");
+        return address.toString();
+    }
+    
+    /**
+     * Метод формирует секцию <main>, для отображения внесенных сведений о текущем клиента
+     * @param request
+     * @param response
+     * @return
+     */
     private String report(HttpServletRequest request, HttpServletResponse response){
         StringBuilder report = new StringBuilder();
         String client_id = request.getParameter("client_id");
         String client_name = request.getParameter("client_name");
         String type = request.getParameter("type");
         String date = request.getParameter("added");
-        report.append("        <p>"+ "" +"</p>"); 
-        report.append("        <p>"+ "" +"</p>");
-        report.append("        <p>"+ "" +"</p>");
-        report.append("        <p>"+ "дата" +"</p>");
+        report.append("    <main>");
+        report.append("        <h1>Список клиентов:</h1>");
+        report.append("        <p>"+ client_id +"</p>"); 
+        report.append("        <p>"+ client_name +"</p>");
+        report.append("        <p>"+ type +"</p>");
+        report.append("        <p>"+ date +"</p>");
+        report.append("    </main>");
         return report.toString();
+
     }
 }
