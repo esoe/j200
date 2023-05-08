@@ -46,10 +46,16 @@ public class CreateServlet extends HttpServlet{
         /**
          * TODO : предусмотреть условие, для отображения только одной из секций <aside>
          */
+        //открываем <aside>
+        out.println("    <aside>");
+        out.println("        <form action=\"create-servlet\" method=\"post\">");
         // формируем секцию <aside>, для заполнения сведений о клиенте
-        out.println(client());
+        out.println(client(request, response));
         // формируем секцию <aside>, для внесения сведений об адресах клиента
         out.println(address(request, response));
+        //закрываем <aside>
+        out.println("        </form>");
+        out.println("    </aside>");
         // Формируем секцию <main>, для отображения внесенных сведений о текущем клиента
         out.println(report(request, response));
 
@@ -64,19 +70,22 @@ public class CreateServlet extends HttpServlet{
      * - открывается кнопка "Зарегистрировать" (отправить данные на сервер возможно только когда заполнены все поля формы, и заполнены правильно)
      * @return
      */
-    private String client(){
+    private String client(HttpServletRequest request, HttpServletResponse response){
         StringBuilder client = new StringBuilder();
-        client.append("    <aside>");
-        client.append("        <form action=\"create-servlet\" method=\"post\">");
         client.append("            <br>");
+        client.append("            <label >СВЕДЕНИЯ О КЛИЕНТЕ:</label>");
+        //client_id
+        client.append("            <br><br>");
         client.append("            <label for=\"client_id\">ID клиента: </label>");
         client.append("            <br>");
         client.append("            <input type=\"text\" name=\"client_id\" value=\"1\" readonly>");
         client.append("            <br><br>");
+        //client_name
         client.append("            <label>Введите ФИО клиента</label>");
         client.append("            <br>");
         client.append("            <input type=\"text\" name=\"client_name\" placeholder=\"Введите ФИО клиента\">");
         client.append("            <br><br>");
+        //type
         client.append("            <label>Выбор типа клиента</label>");
         client.append("            <br>");
         client.append("            <select name=\"type\">");
@@ -84,12 +93,9 @@ public class CreateServlet extends HttpServlet{
         client.append("                <option value=\"Физическое лицо\">Физическое лицо</option>");
         client.append("            </select>");
         client.append("            <br><br>");
+        //date
         client.append("            <label>Дата добавления клиента</label>");
         client.append("            <input type=\"date\" name=\"added\">");
-        client.append("            <br><br>");
-        client.append("            <button type=\"submit\" formmethod=\"post\">Добавить адреса</button>");
-        client.append("        </form>");
-        client.append("    </aside>");
         return client.toString();
     }
     /**
@@ -103,30 +109,46 @@ public class CreateServlet extends HttpServlet{
      */
     private String address(HttpServletRequest request, HttpServletResponse response){
         StringBuilder address = new StringBuilder();
-        address.append("    <aside>");
-        address.append("        <form action=\"create-servlet\" method=\"post\">");
-        address.append("            <br>");
-        address.append("            <label for=\"client_id\">ID клиента: </label>");
-        address.append("            <br>");
-        address.append("            <input type=\"text\" name=\"client_id\" value=\"1\" readonly>");
+        // ip
         address.append("            <br><br>");
-        address.append("            <label>Введите ФИО клиента</label>");
+        address.append("            <label >СВЕДЕНИЯ ОБ АДРЕСАХ: </label>");
+        address.append("            <br><br>");
+        address.append("            <label for=\"ip\">Введите ip-адрес клиента </label>");
         address.append("            <br>");
-        address.append("            <input type=\"text\" name=\"client_name\" placeholder=\"Введите ФИО клиента\">");
+        address.append("            <input type=\"text\" name=\"ip\" value=\"0.0.0.0\">");
+        // mac
         address.append("            <br><br>");
-        address.append("            <label>Выбор типа клиента</label>");
+        address.append("            <label>Введите mac-адрес клиента</label>");
         address.append("            <br>");
-        address.append("            <select name=\"type\">");
-        address.append("                <option value=\"Юридическое лицо\">Юридическое лицо</option>");
-        address.append("                <option value=\"Физическое лицо\">Физическое лицо</option>");
-        address.append("            </select>");
+        address.append("            <input type=\"text\" name=\"client_name\" placeholder=\"00:00:00:00:00:00:00:00\">");
+        // model
         address.append("            <br><br>");
-        address.append("            <label>Дата добавления клиента</label>");
-        address.append("            <input type=\"date\" name=\"added\">");
+        address.append("            <label>Укажите модель устройства</label>");
+        address.append("            <br>");
+        address.append("            <input type=\"text\" name=\"model\">");
+        // address
         address.append("            <br><br>");
-        address.append("            <button type=\"submit\" formmethod=\"post\">Добавить адреса</button>");
-        address.append("        </form>");
-        address.append("    </aside>");
+        address.append("            <label>Укажите адрес клиента</label>");
+        address.append("            <br>");
+        address.append("            <input type=\"text\" name=\"address\">");
+        // 
+        /**
+         * Кнопка добавления дополнительного адреса
+         * При клике:
+         * - проверяется корректность введенных данных
+         * - в случае ошибок, в секции <main> указывается характер несоответствий
+         * - в случае корректности данных, в секции <main> отражаются введенные данные о текущем клиенте и очищается поле ввода данных об адресах.
+         */
+        address.append("            <br><br>");
+        address.append("            <button type=\"submit\" formmethod=\"post\">Добавить адрес</button>");
+        /**
+         * Кнопка сохранения данных о клиенте.
+         * При клике:
+         * 
+         */
+        address.append("            <br><br>");
+        address.append("            <button type=\"submit\" formmethod=\"post\">Просмотреть данные о клиенте</button>");
+        address.append("            <button type=\"submit\" formmethod=\"post\">Сохранить данные о клиенте</button>");
         return address.toString();
     }
     
@@ -143,7 +165,7 @@ public class CreateServlet extends HttpServlet{
         String type = request.getParameter("type");
         String date = request.getParameter("added");
         report.append("    <main>");
-        report.append("        <h1>Список клиентов:</h1>");
+        report.append("        <h1>Карточка клиента:</h1>");
         report.append("        <p>"+ client_id +"</p>"); 
         report.append("        <p>"+ client_name +"</p>");
         report.append("        <p>"+ type +"</p>");
