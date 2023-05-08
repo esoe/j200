@@ -1,12 +1,3 @@
-ru\molokoin\j200\UserStore.class
-ru\molokoin\j200\model\Person.class
 ru\molokoin\j200\model\Client.class
 ru\molokoin\j200\CreateServlet.class
-ru\molokoin\j200\User.class
-ru\molokoin\j200\services\PersonService.class
-ru\molokoin\j200\model\Passport.class
-ru\molokoin\j200\ErrorServlet.class
-ru\molokoin\j200\LoginServlet.class
 ru\molokoin\j200\model\Address.class
-ru\molokoin\j200\services\PersonServiceImpl.class
-ru\molokoin\j200\ServletViewList.class
