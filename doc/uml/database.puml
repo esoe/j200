@@ -1,0 +1,36 @@
+@startuml j200 (erd)
+!define primary_key(x) <b><color:#b8861b><&key></color> x</b>
+!define foreign_key(x) <b><color:#aaaaaa><&key></color> x</b>
+!define column(x) <b><color:#efefef><&media-record></color> x</b>
+!define table(x) entity x << (T, white) >>
+
+title "Entity Relationship Diagram (ERD): network client data storage system (ncdss) - Система хранения данных сетевых клиентов"
+' left to right direction
+entity "Клиенты" as clients
+entity "Адреса" as addresses
+
+' Таблица содержащая сведения о клиенте
+table(clients){
+    primary_key(id): SERIAL                 >>"Идентификатор"
+    column(client_name): VARCHAR[100]       >>"Наименование клиента"
+    column(type): VARCHAR[20]               >>"Тип клиента"
+    column(added): DATE                     >>"Дата добавления клиента"
+    ' Проще было бы удалить отсюда адреса
+    ' и получать список адресов по id клиента из таблицы addresses
+    column(addresses): ARRAYLIST<Address>  >>"Список адресов клиента"
+}
+
+table(addresses){
+    column(ip): VARCHAR[25]                 >>"Сетевой адрес устройства"
+    column(mac): VARCHAR[20]                >>"Физический адрес устройства"
+    column(model): VARCHAR[100]             >>"Модель устройства"
+    column(address): VARCHAR[200]           >>"Адрес местонахождения устройства"
+    ' Проще оставить поле client_id и получать по нему доступ к данным о клиенте
+    column(client): Client                  >>"Клиент"
+}
+
+clients ||--|{ addresses : "client"
+addresses }|--|| clients : "addresses"
+
+
+@enduml

@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.ejb.Stateful;
-import ru.molokoin.j200.model.Address;
-import ru.molokoin.j200.model.Client;
+import ru.molokoin.j200.models.Address;
+import ru.molokoin.j200.models.Client;
 
 @Stateful
 public class ClientServiceImpl implements ClientService {

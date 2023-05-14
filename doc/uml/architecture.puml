@@ -1,0 +1,14 @@
+@startuml
+title "Архитектура сервиса : tools"
+component "wildfly" as server {
+    component "j200" as webapp
+} 
+database "mySQL" as base
+
+component "browser" as browser
+
+browser --> server : "1. Отправка запроса (http - get, post)"
+server --> browser : "2. Получение ответа (html)"
+base --> webapp : "3. Предоставляет данные"
+
+@enduml

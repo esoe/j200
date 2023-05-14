@@ -1,0 +1,33 @@
+@startuml
+
+package "java.ru.molokoin.j200"{
+    ' Классы-модели
+    package models {
+        class Address{}
+        class Client{}
+    }
+
+    ' Сервлеты
+    package servlets{
+        class ViewList{}
+        class Create{}
+        class Delete{}
+        class Update{}
+    }
+
+    ' service beans
+    package services{
+        ' interface ClientService{}
+        ' class ClientServiceImpl{}
+        ' interface AppRepositoryLocal{}
+        ' class AppRepository{}
+        class DbManager{}
+        class SelectBean{}
+        Class UpdateBean{}
+    }
+
+}
+
+
+
+@enduml

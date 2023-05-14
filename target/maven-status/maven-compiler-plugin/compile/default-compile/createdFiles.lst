@@ -1,3 +1,12 @@
-ru\molokoin\j200\model\Client.class
-ru\molokoin\j200\CreateServlet.class
-ru\molokoin\j200\model\Address.class
+ru\molokoin\j200\models\Client.class
+ru\molokoin\j200\servlets\Create.class
+ru\molokoin\j200\servlets\ViewList.class
+ru\molokoin\j200\entities\Client.class
+ru\molokoin\j200\models\Address.class
+ru\molokoin\j200\services\ClientService.class
+ru\molokoin\j200\services\Repository.class
+ru\molokoin\j200\servlets\Update.class
+ru\molokoin\j200\services\RepositoryFace.class
+ru\molokoin\j200\services\ClientServiceImpl.class
+ru\molokoin\j200\servlets\Delete.class
+ru\molokoin\j200\entities\Address.class
