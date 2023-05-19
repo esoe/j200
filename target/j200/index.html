@@ -5,24 +5,28 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>j200</title>
-    <link href="layout/styles.css" rel="stylesheet">
+    <!-- <link href="layout/styles.css" rel="stylesheet"> -->
 </head>
 <body>
     <header>
-        <a href="content/Лабораторная_работа_по_курсу_DEV_J200.pdf">
-            <h1>J200 : разработка корпоративных приложений</h1>
-        </a>
+        <form action="check-access" method="post">
+            <input type="text" name="login" placeholder="login">
+            <input type="password" name="password" placeholder="password">
+            <button type="submit" formmethod="post">sign in</button>
+        </form>
+        <br><br>
+        <a href="check-access">Список доступных учетных записей</a>
     </header>
-    <aside>
-        <!-- <a  href="create-servlet">Перейти к решению</a> -->
+    <!-- <aside>
+        <a  href="create-servlet">create-servlet</a>
         <form action="view-list" method="get">
             <br><br>
             <button type="submit" formmethod="get">К РЕШЕНИЮ</button>
         </form>
-    </aside>
-    <main>
+    </aside> -->
+    <!-- <main>
         <embed src="content/Лабораторная_работа_по_курсу_DEV_J200.pdf" type="application/pdf">
-    </main>
+    </main> -->
     <footer></footer>
 </body>
 </html>
