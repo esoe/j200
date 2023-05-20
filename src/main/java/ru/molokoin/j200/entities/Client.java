@@ -38,7 +38,7 @@ public class Client implements Serializable{
     private String client_type;
     @Column(name = "added", length = 100)
     private String added;
-    @OneToMany(mappedBy = "client_id", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
     private Collection<Address> addresses = new ArrayList<>();
 
     public Client(){}
@@ -71,13 +71,13 @@ public class Client implements Serializable{
     public String getAdded() {
         return added;
     }
-    // @XmlTransient
-    // public Collection<Address> getAddresses() {
-    //     return addresses;
-    // }
-    // public void setAddresses(Collection<Address> addresses) {
-    //     this.addresses = addresses;
-    // }
+    @XmlTransient
+    public Collection<Address> getAddresses() {
+        return addresses;
+    }
+    public void setAddresses(Collection<Address> addresses) {
+        this.addresses = addresses;
+    }
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -104,7 +104,7 @@ public class Client implements Serializable{
     @Override
     public String toString() {
         return "Client [id=" + id + ", name=" + name + ", client_type=" + client_type + ", added=" + added
-                //+ ", addresses=" + addresses
+                + ", addresses=" + addresses
                 + "]";
     }
     

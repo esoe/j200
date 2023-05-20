@@ -24,13 +24,17 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  * Указали наименование таблицы в базе.
  * -не понятно, обязательно ли должна быть создана таблица, заранее.
  */
-@Table(name = "Addresses")
-@XmlRootElement
-// @NamedQueries({
-//     @NamedQuery(name = "Addresses.findAll", query = "SELECT a FROM Addresses a")
-//     , @NamedQuery(name = "Addresses.findById", query = "SELECT a FROM Addresses a WHERE a.id = :id")
-//     , @NamedQuery(name = "Addresses.findByIp", query = "SELECT a FROM Addresses a WHERE a.ip = :ip")
-//     })
+@Table(name = "Addresses", schema = "j200", catalog = "")
+@NamedQueries({
+    @NamedQuery(name = "Addresses.findAll",
+                query = "SELECT a FROM Address a"),
+    // @NamedQuery(name = "Addresses.findByClient",
+    //             query = "SELECT a FROM Address a WHERE a.client_id = :client_id"), 
+    @NamedQuery(name = "Addresses.findById", 
+                query = "SELECT a FROM Address a WHERE a.id = :id"), 
+    @NamedQuery(name = "Addresses.findByIp", 
+                query = "SELECT a FROM Address a WHERE a.ip = :ip")
+})
 public class Address implements Serializable{
     @Id //уникальный идентификатор строки
     @GeneratedValue(strategy = GenerationType.IDENTITY)//автоматически-генерируемые значения поля
@@ -57,9 +61,10 @@ public class Address implements Serializable{
     private String address;
 
     @Basic(optional = false) //не может быть null : адрес не может быть не привязан к клиенту
-    @JoinColumn(name = "client_id", referencedColumnName = "id")
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Client client_id;
+    //@JoinColumn(name = "client_id", referencedColumnName = "id")
+    @JoinColumn(name = "client_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Client client;
     /**
      * Главный конструктор, без него ничего не будет работать
      */
@@ -94,11 +99,11 @@ public class Address implements Serializable{
     public String getAddress() {
         return address;
     }
-    public void setClient_id(Client client_id) {
-        this.client_id = client_id;
+    public void setClient(Client client) {
+        this.client = client;
     }
-    public Client getClient_id() {
-        return client_id;
+    public Client getClient() {
+        return client;
     }
     @Override
     public int hashCode() {

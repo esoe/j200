@@ -45,7 +45,7 @@ public class ViewList extends HttpServlet{
         out.println("    <meta charset=\"UTF-8\">");
         out.println("    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">");
         out.println("    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">");
-        out.println("    <title>j200</title>");
+        out.println("    <title>j200:view-list</title>");
         // out.println("    <link href=\"layout/styles.css\" rel=\"stylesheet\">");
         out.println("</head>");
         out.println("<html><body >");
@@ -56,16 +56,7 @@ public class ViewList extends HttpServlet{
         out.println("    <br><br>");
         out.println("    <button type=\"submit\" formmethod=\"get\">create-client</button>");
         out.println("</form>");
-        // out.println("<form action=\"update\" method=\"get\">");
-        // out.println("    <br><br>");
-        // out.println("    <button type=\"submit\" formmethod=\"get\">update</button>");
-        // out.println("</form>");
-        // out.println("<form action=\"delete\" method=\"get\">");
-        // out.println("    <br><br>");
-        // out.println("    <button type=\"submit\" formmethod=\"get\">delete</button>");
-        // out.println("</form>");
         out.println("</aside>");
-        //main
         out.println("<main>");
         //Вывод записей из таблицы molokoin.ru:3306/j200/Clients
         out.println("<h1>" + "Все клиенты" + "</h1>");
@@ -75,40 +66,22 @@ public class ViewList extends HttpServlet{
         out.println("<td>ФИО</td>");
         out.println("<td>Тип клиента</td>");
         out.println("<td>Дата добавления</td>");
-        out.println("<td>IP</td>");
-        out.println("<td>MAC</td>");
-        out.println("<td>Модель</td>");
-        out.println("<td>Адрес</td>");
+        // out.println("<td>IP</td>");
+        // out.println("<td>MAC</td>");
+        // out.println("<td>Модель</td>");
+        // out.println("<td>Адрес</td>");
         out.println("</tr>");
-
         Collection<Client> clients = repository.getClients();
         for(Client client : clients) {
-            // Collection<Address> addresses = client.getAddresses();
-            // if(addresses!=null && !addresses.isEmpty()) {
-            //     for(Address address : addresses) {
-            //         out.println("<tr>");
-            //         out.println("<td>" + client.getId() + "</td>");
-            //         out.println("<td>" + String.valueOf(client.getName()) + "</td>");
-            //         out.println("<td>" + String.valueOf(client.getClient_type()) + "</td>");
-            //         out.println("<td>" + client.getAdded() + "</td>");
-            //         out.println("<td>" + String.valueOf(address.getIp()) + "</td>");
-            //         out.println("<td>" + String.valueOf(address.getMac()) + "</td>");
-            //         out.println("<td>" + String.valueOf(address.getModel()) + "</td>");
-            //         out.println("<td>" + String.valueOf(address.getAddress()) + "</td>");
-            //         out.println("</tr>");
-            //     }
-            // }else {
                 out.println("<tr>");
                 out.println("<td>" + client.getId() +"</td>");
                 
-                out.println("<td>" + "<a href=\"create-client?id="+client.getId()+"\">"+ client.getName()  +"</a></td>");
-                //out.println("<td>" + client.getName() + "</td>");
+                out.println("<td>" + "<a href=\"create-client?clientid="+client.getId()+"\">"+ client.getName()  +"</a></td>");
                 out.println("<td>" + client.getClient_type() + "</td>");
                 out.println("<td>" + client.getAdded() + "</td>");
                 out.println("<td></td>");
                 out.println("<td></td>");
                 out.println("</tr>");
-            //}
         }
         out.println("</table>");
         out.println("</main>");

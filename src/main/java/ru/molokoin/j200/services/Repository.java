@@ -1,6 +1,7 @@
 package ru.molokoin.j200.services;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.ejb.Singleton;
@@ -40,9 +41,6 @@ public class Repository implements RepositoryFace{
 
     @Override
     public Client updateClient(Client client) {
-        // String sql = "SELECT * FROM Clients WHERE name='" + client.getName() + "' AND client_type='" + client.getClient_type() + "'";
-        // List<Client> list = em.createNativeQuery(sql, Client.class).getResultList();
-        // if(list.size()>0) client = list.get(0);
         em.merge(client);
         em.flush();
         return client;
@@ -54,11 +52,42 @@ public class Repository implements RepositoryFace{
         em.flush();
     }
 
-
     @Override
     public Address createAddress(Address address) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'createAddress'");
+        String sql = "SELECT * FROM Addresses WHERE ip='"   + address.getIp() 
+                                                            + "' AND mac='" + address.getMac() 
+                                                            + "' AND model='" + address.getModel()
+                                                            + "' AND address='" + address.getAddress()
+                                                            + "' AND client_id='" + address.getClient().getId()
+                                                            + "'";
+        List<Address> list = em.createNativeQuery(sql, Address.class).getResultList();
+        if(list.size()>0) address = list.get(0);
+        em.merge(address);
+        em.flush();
+        return address;
     }
+    @Override
+    public Address updateAddress(Address address) {
+        em.merge(address);
+        em.flush();
+        return address;
+    }
+
+    @Override
+    public void removeAddress(Integer id) {
+        em.remove(getAddressById(id));
+        em.flush();
+    }
+
+    @Override
+    public Address getAddressById(Integer id){
+        return em.find(Address.class, id);
+    }
+
+    @Override
+    public List<Address> getAddresses() {
+        return em.createNamedQuery("Addresses.findAll", Address.class).getResultList();
+    }
+
     
 }

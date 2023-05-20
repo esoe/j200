@@ -10,4 +10,5 @@ ru\molokoin\j200\services\Repository.class
 ru\molokoin\j200\servlets\CreateClient.class
 ru\molokoin\j200\servlets\UpdateClient.class
 ru\molokoin\j200\services\RepositoryFace.class
+ru\molokoin\j200\servlets\AddAddress.class
 ru\molokoin\j200\entities\Address.class

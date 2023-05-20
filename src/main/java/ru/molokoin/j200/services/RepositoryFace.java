@@ -14,5 +14,8 @@ public interface RepositoryFace {
     Client updateClient(Client client);
     void removeClient(Integer id);
     Address createAddress(Address address);
-    
+    Address updateAddress(Address address);
+    void removeAddress(Integer id);
+    Address getAddressById(Integer id);
+    List<Address> getAddresses();
 }

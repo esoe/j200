@@ -8,6 +8,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import ru.molokoin.j200.entities.Address;
 import ru.molokoin.j200.entities.Client;
 import ru.molokoin.j200.services.RepositoryFace;
 
@@ -22,7 +23,7 @@ public class CreateClient extends HttpServlet{
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html; charset=UTF-8");
-        String id = request.getParameter("id");
+        String clientid = request.getParameter("clientid");
         PrintWriter out = response.getWriter();
         out.println("<!DOCTYPE html>");
         out.println("<html lang=\"en\">");
@@ -31,17 +32,19 @@ public class CreateClient extends HttpServlet{
         out.println("    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">");
         out.println("    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">");
         out.println("    <title>j200 : create</title>");
-        out.println("    <!-- <link href=\"layout/styles.css\" rel=\"stylesheet\"> -->");
+        out.println("    <link href=\"layout/styles.css\" rel=\"stylesheet\"> ");
         out.println("</head>");
         out.println("<body>");
-        out.println("    <header>");
-        out.println("    </header>");
         out.println("    <aside>");
         out.println("    </aside>");
         /**
          * Если id == null ---> create
          */
-        if (id == null) {
+        if (clientid == null) {
+            out.println("    <header>");
+            out.println("              <h1>Создание нового клиента</h1>");
+            out.println("    </header>");
+        
             out.println("    <main>");
             out.println("        <form action=\"create-client\" method=\"post\">");
             out.println("            <br>");
@@ -71,13 +74,14 @@ public class CreateClient extends HttpServlet{
          * Если id != null ---> update
          */
         else{
-            Client client = repository.getClientById(Integer.valueOf(id));
-            out.println("    <main>");
+            Client client = repository.getClientById(Integer.valueOf(clientid));
+            out.println("    <header>");
+            out.println("              <h1>" + "Редактор данных клиента #" + client.getId() + "</h1>");
+            out.println("    </header>");
+            out.println("    <aside>");
             out.println("        <form action=\"update-client\" method=\"post\">");
             out.println("            <br>");
-            out.println("              <h1>" + "Редактор данных клиента #" + client.getId() + "</h1>");
             out.println("              <input type=\"hidden\" name=\"id\" value=\"" + client.getId() + "\">");
-            out.println("            <br><br>");
             out.println("            <label>ФИО клиента</label>");
             out.println("            <br>");
             out.println("              <input type=\"text\" name=\"name\" value=\"" + client.getName() + "\">");
@@ -96,26 +100,46 @@ public class CreateClient extends HttpServlet{
             out.println("            <br><br>");
             out.println("            <button type=\"submit\" formmethod=\"post\">Обновить</button>");
             out.println("        </form>");
-            /**
-             * Кнопка добавления адреса:
-             * - Пересылаем пользователя на сервлет add-address:get
-             * - там он заполнитформу сведений об адресе и уйдет в add-address:post
-             * - откуда, отправит данные в базу и редиректнет на страничку редактирования клиента
-             */
-            out.println("        <br><br>");
+            out.println("        <br>");
             out.println("        <form action=\"add-address\" method=\"get\">");
-            out.println("              <input type=\"hidden\" name=\"id\" value=\"" + client.getId() + "\">");
+            //кнопка : добавить адрес
+            out.println("              <input type=\"hidden\" name=\"clientid\" value=\"" + client.getId() + "\">");
             out.println("            <button type=\"submit\" formmethod=\"get\">Добавить адрес</button>");
             out.println("        </form>");
-            /**
-             * Кнопка удаления клиента
-             */
-            out.println("        <br><br>");
+            out.println("        <br>");
             out.println("        <form action=\"remove-client\" method=\"post\">");
-            out.println("              <input type=\"hidden\" name=\"id\" value=\"" + client.getId() + "\">");
+            out.println("              <input type=\"hidden\" name=\"clientid\" value=\"" + client.getId() + "\">");
             out.println("            <button type=\"submit\" formmethod=\"post\">Удалить</button>");
             out.println("        </form>");
+            out.println("        <br><br>");
             out.println("        <a href=\"view-list\">Просмотреть список клиентов</a>");
+            out.println("    </aside>");
+
+            /**
+             * вывод списка адресов, привязанных к клиенту
+             */
+            out.println("    <main>");
+            out.println("<table>");
+            //Заголовки столбцов
+            out.println("<tr>");
+            out.println("<td>ID</td>");
+            out.println("<td>IP</td>");
+            out.println("<td>MAC</td>");
+            out.println("<td>Модель</td>");
+            out.println("<td>Адрес</td>");
+            out.println("</tr>");
+            //строки таблицы
+            for (Address address : client.getAddresses()) {
+                out.println("<tr>");
+                out.println("<td>" + address.getId() +"</td>");
+                out.println("<td>" + "<a href=\"add-address?addressid="+address.getId()+"\">"+ address.getIp()  +"</a></td>");
+                out.println("<td>" + address.getMac() + "</td>");
+                out.println("<td>" + address.getModel() + "</td>");
+                out.println("<td>" + address.getAddress() + "</td>");
+                out.println("<td></td>");
+                out.println("<td></td>");
+                out.println("</tr>");
+            }
             out.println("    </main>");
         }
         out.println("    <footer>");
