@@ -52,7 +52,7 @@ public class CreateClient extends HttpServlet{
             out.println("            <br><br>");
             out.println("            <label>Введите ФИО клиента</label>");
             out.println("            <br>");
-            out.println("            <input type=\"text\" name=\"name\" placeholder=\"Введите ФИО клиента:\">");
+            out.println("            <input type=\"text\" name=\"name\" pattern=\"[а-яА-Я-]{1,100}\">");
             out.println("            <br><br>");
             out.println("            <label>Выбор типа клиента:</label>");
             out.println("            <br>");
@@ -84,7 +84,7 @@ public class CreateClient extends HttpServlet{
             out.println("              <input type=\"hidden\" name=\"id\" value=\"" + client.getId() + "\">");
             out.println("            <label>ФИО клиента</label>");
             out.println("            <br>");
-            out.println("              <input type=\"text\" name=\"name\" value=\"" + client.getName() + "\">");
+            out.println("              <input type=\"text\" name=\"name\" pattern=\"[а-яА-Я-]{1,100}\" value=\"" + client.getName() + "\">");
             out.println("            <br><br>");
             out.println("            <label>Выбор типа клиента:</label>");
             out.println("            <br>");

@@ -9,6 +9,7 @@ import ru.molokoin.j200.entities.Client;
 @Local
 public interface RepositoryFace {
     List<Client> getClients();
+    List<Client> getClients(String filterName, String filterType);
     Client getClientById(Integer id);
     Client createClient(Client client);
     Client updateClient(Client client);

@@ -1,7 +1,9 @@
 C:\Users\Strannik\Documents\esoe\code\j200\src\main\java\ru\molokoin\j200\entities\Client.java
 C:\Users\Strannik\Documents\esoe\code\j200\src\main\java\ru\molokoin\j200\services\Access.java
+C:\Users\Strannik\Documents\esoe\code\j200\src\main\java\ru\molokoin\j200\servlets\RemoveAddress.java
 C:\Users\Strannik\Documents\esoe\code\j200\src\main\java\ru\molokoin\j200\servlets\CheckAccess.java
 C:\Users\Strannik\Documents\esoe\code\j200\src\main\java\ru\molokoin\j200\servlets\AddAddress.java
+C:\Users\Strannik\Documents\esoe\code\j200\src\main\java\ru\molokoin\j200\servlets\UpdateAddress.java
 C:\Users\Strannik\Documents\esoe\code\j200\src\main\java\ru\molokoin\j200\services\RepositoryFace.java
 C:\Users\Strannik\Documents\esoe\code\j200\src\main\java\ru\molokoin\j200\servlets\CreateAccount.java
 C:\Users\Strannik\Documents\esoe\code\j200\src\main\java\ru\molokoin\j200\servlets\RemoveClient.java

@@ -1,12 +1,11 @@
 package ru.molokoin.j200.services;
 
-import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.ejb.Singleton;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
 import ru.molokoin.j200.entities.Address;
 import ru.molokoin.j200.entities.Client;
 
@@ -23,7 +22,16 @@ public class Repository implements RepositoryFace{
         // return clients;
         return em.createNamedQuery("Clients.findAll", Client.class).getResultList();
     }
-
+    @Override
+    public List<Client> getClients(String filterName, String filterType) {
+        if (filterName == null){filterName = "";}
+        if (filterType == null){filterType = "";}
+        String sql = "SELECT id, name, client_type, added FROM Clients WHERE name LIKE '%" + filterName+ "%' AND client_type LIKE '%" + filterType+ "%'";
+        Query query = em.createNativeQuery(sql, Client.class);
+        List<Client> clients = query.getResultList();
+        return clients;
+    }
+    
     @Override
     public Client getClientById(Integer id){
         return em.find(Client.class, id);
@@ -88,6 +96,4 @@ public class Repository implements RepositoryFace{
     public List<Address> getAddresses() {
         return em.createNamedQuery("Addresses.findAll", Address.class).getResultList();
     }
-
-    
 }

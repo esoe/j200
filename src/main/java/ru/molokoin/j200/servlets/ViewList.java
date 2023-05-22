@@ -2,6 +2,7 @@ package ru.molokoin.j200.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import jakarta.ejb.EJB;
@@ -46,19 +47,48 @@ public class ViewList extends HttpServlet{
         out.println("    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">");
         out.println("    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">");
         out.println("    <title>j200:view-list</title>");
-        // out.println("    <link href=\"layout/styles.css\" rel=\"stylesheet\">");
+        out.println("    <link href=\"layout/styles.css\" rel=\"stylesheet\">");
         out.println("</head>");
         out.println("<html><body >");
-        out.println("<aside>");
+        out.println("<header>");
+        
 
+        out.println("</header>");
+        out.println("<aside>");
+        out.println("   <h2 >Controls :</h2>");
         //Кнопка перехода на страницу создания записи о клиенте
-        out.println("<form action=\"create-client\" method=\"get\">");
-        out.println("    <br><br>");
-        out.println("    <button type=\"submit\" formmethod=\"get\">create-client</button>");
+        out.println("   <form action=\"create-client\" method=\"get\">");
+        out.println("       <br><br>");
+        out.println("       <button type=\"submit\" formmethod=\"get\">create-client</button>");
+        out.println("   </form>");
+        out.println("   <br>");
+        out.println("   <br>");
+
+        /**
+         * Фильтры
+         */
+        out.println("<form action=\"view-list\" method=\"post\">");
+        out.println("    <h2 >Filters :</h2>");
+        out.println("<br>");
+        out.println("    <label >Фильтр по полю \"ФИО\" </label>");
+        out.println("    <input type=\"text\" name=\"filter-name\">");
+        out.println("<br>");
+        out.println("<br>");
+        out.println("    <label >Фильтр по полю \"Тип клиента\" </label>");
+        out.println("    <select name=\"filter-type\">");
+        out.println("            <option value=\"\" selected enabled hidden>не выбран</option>");
+        out.println("            <option value=\"Юридическое лицо\">Юридическое лицо</option>");
+        out.println("            <option value=\"Физическое лицо\">Физическое лицо</option>");
+        out.println("    </select>");
+        out.println("<br>");
+        out.println("<br>");
+        out.println("    <button type=\"submit\" formmethod=\"get\">Применить фильтр</button>");
         out.println("</form>");
         out.println("</aside>");
         out.println("<main>");
-        //Вывод записей из таблицы molokoin.ru:3306/j200/Clients
+        /**
+         * Вывод списка записей
+         */
         out.println("<h1>" + "Все клиенты" + "</h1>");
         out.println("<table>");
         out.println("<tr>");
@@ -66,12 +96,9 @@ public class ViewList extends HttpServlet{
         out.println("<td>ФИО</td>");
         out.println("<td>Тип клиента</td>");
         out.println("<td>Дата добавления</td>");
-        // out.println("<td>IP</td>");
-        // out.println("<td>MAC</td>");
-        // out.println("<td>Модель</td>");
-        // out.println("<td>Адрес</td>");
+        out.println("<td>Сведения об адресах</td>");
         out.println("</tr>");
-        Collection<Client> clients = repository.getClients();
+        Collection<Client> clients = repository.getClients(request.getParameter("filter-name"), request.getParameter("filter-type"));
         for(Client client : clients) {
                 out.println("<tr>");
                 out.println("<td>" + client.getId() +"</td>");
@@ -79,13 +106,19 @@ public class ViewList extends HttpServlet{
                 out.println("<td>" + "<a href=\"create-client?clientid="+client.getId()+"\">"+ client.getName()  +"</a></td>");
                 out.println("<td>" + client.getClient_type() + "</td>");
                 out.println("<td>" + client.getAdded() + "</td>");
-                out.println("<td></td>");
-                out.println("<td></td>");
+                out.println("<td>");
+                for(Address address : client.getAddresses()){
+                    out.println("<a href=\"add-address?addressid=" + address.getId() + "\">");
+                    out.println(address.toString());
+                    out.println("</a>");
+                    out.println("<br>");
+                    out.println("<br>");
+                }
+                out.println("</td>");
                 out.println("</tr>");
         }
         out.println("</table>");
         out.println("</main>");
         out.println("</body></html>");
     }
-    
 }
