@@ -1,5 +1,6 @@
 package ru.molokoin.j200.services;
 
+import java.util.Collection;
 import java.util.List;
 
 import jakarta.ejb.Singleton;
@@ -54,8 +55,19 @@ public class Repository implements RepositoryFace{
         return client;
     }
 
+    /**
+     * Проверить наличие адресов у Клиента,
+     * при наличии, удалить адреса, затем удалить клиента
+     */
     @Override
     public void removeClient(Integer id) {
+        Client client = getClientById(id);
+        Collection <Address> addresses =  client.getAddresses();
+        if (addresses.size() > 0){
+            for (Address address : addresses) {
+                em.remove(address);
+            }
+        }
         em.remove(getClientById(id));
         em.flush();
     }
@@ -95,5 +107,16 @@ public class Repository implements RepositoryFace{
     @Override
     public List<Address> getAddresses() {
         return em.createNamedQuery("Addresses.findAll", Address.class).getResultList();
+    }
+    /**
+     * Метод возвращает перечень адресов, найденных в таблице Addresses
+     * по id Клиента.
+     * - метод оказался бесполезным, так как Сущности Клиентов содержат списки сущностей, привязанных к ним адресов.
+     */
+    @Override
+    public List<Address> getAddressesByClientID(Integer client_id){
+        String sql = "SELECT * FROM Addresses WHERE client_id=" + client_id;
+        List<Address> list = em.createNativeQuery(sql, Address.class).getResultList();
+        return list;
     }
 }

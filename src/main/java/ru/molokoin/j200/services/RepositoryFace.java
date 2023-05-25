@@ -19,4 +19,5 @@ public interface RepositoryFace {
     void removeAddress(Integer id);
     Address getAddressById(Integer id);
     List<Address> getAddresses();
+    List<Address> getAddressesByClientID(Integer client_id);
 }

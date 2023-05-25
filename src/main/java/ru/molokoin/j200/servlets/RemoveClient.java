@@ -25,7 +25,7 @@ public class RemoveClient extends HttpServlet{
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html; charset=UTF-8");
-        Integer id = Integer.parseInt((String)request.getParameter("id"));
+        Integer id = Integer.parseInt((String)request.getParameter("clientid"));
         
         repository.removeClient(id);
         response.sendRedirect("view-list");
