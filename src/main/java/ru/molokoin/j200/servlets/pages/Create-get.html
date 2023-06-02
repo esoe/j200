@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>j200 : create</title>
+    <!-- <link href="layout/styles.css" rel="stylesheet"> -->
+</head>
+<body>
+    <header>
+    </header>
+    <aside>
+    </aside>
+    <main>
+        <form action="create" method="post">
+            <br>
+            <label >Сведения о клиенте:</label>
+            <br><br>
+            <label for="client_id">ID клиента: </label>
+            <br>
+            <input type="text" name="client_id" value="1" readonly>
+            <br><br>
+            <label>Введите ФИО клиента</label>
+            <br>
+            <input type="text" name="client_name" placeholder="Введите ФИО клиента:">
+            <br><br>
+            <label>Выбор типа клиента:</label>
+            <br>
+            <select name="type">
+            <option value="Юридическое лицо">Юридическое лицо</option>
+            <option value="Физическое лицо">Физическое лицо</option>
+                </select>
+            <br><br>
+            <label>Дата добавления клиента:</label>
+            <br>
+            <input type="date" name="added">
+            <br><br>
+            <button type="submit" formmethod="post">Сохранить</button>
+        </form>
+    </main>
+    <footer>
+    </footer>
+</body>
+</html>

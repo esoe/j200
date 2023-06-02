@@ -7,20 +7,22 @@
 
 a{
     text-decoration: none;
-    color: #fff;
+    color: #465df5;
 }
 
 header{
     display: flex;
     position: fixed;
-    justify-content: space-between;
+    /* justify-content: space-between; */
+    justify-content: right;
     width: 100%;
     padding-left: 20%;
     align-items: center;
     justify-content: space-between;
     background-color: rgba(25, 25, 25, 0.8);
     z-index: 10;
-    max-height: 3rem;
+    height: 7rem;
+    /* max-height: 7rem; */
 }
 
 aside{
@@ -31,7 +33,7 @@ aside{
     background-color: rgba(25, 25, 25, 0.8);
     width: 20%;
     height: 700px;
-    margin-top: 3rem;
+    margin-top: 7rem;
     /* padding: 5px; */
 }
 aside a{
@@ -55,7 +57,7 @@ main{
     height: 700px;
     width: 80%;
     background-color: rgba(25, 25, 25, 0.2);
-    margin-top: 3rem;
+    margin-top: 7rem;
     margin-left: 20%;
 }
 embed{
