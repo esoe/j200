@@ -1,5 +1,6 @@
 ru\molokoin\j200\services\AccessFace.class
 ru\molokoin\j200\servlets\RemoveClient.class
+ru\molokoin\j200\servlets\RemoveAddress.class
 ru\molokoin\j200\entities\Account.class
 ru\molokoin\j200\servlets\ViewList.class
 ru\molokoin\j200\entities\Client.class
@@ -10,5 +11,6 @@ ru\molokoin\j200\services\Repository.class
 ru\molokoin\j200\servlets\CreateClient.class
 ru\molokoin\j200\servlets\UpdateClient.class
 ru\molokoin\j200\services\RepositoryFace.class
+ru\molokoin\j200\servlets\UpdateAddress.class
 ru\molokoin\j200\servlets\AddAddress.class
 ru\molokoin\j200\entities\Address.class
